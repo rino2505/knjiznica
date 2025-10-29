@@ -48,54 +48,29 @@ const linksList = [
     link: '#/popisKnjiga'
   },
   {
-    title: 'Docs',
-    caption: 'quasar.dev',
+    title: 'Knjižnica- pretraživanje',
+    caption: 'Pretraživanje knjiga u knjižnici',
     icon: 'school',
-    link: 'https://quasar.dev',
+    link: '#/Pretrazivanje'
   },
   {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework',
+    title: 'Knjižnica- lokacija',
+    caption: 'Lokacija knjižnice',
+    icon: 'school',
+    link: '#/Lokacija'
   },
   {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev',
+    title: 'Knjižnica- login',
+    caption: 'Login korisnika',
+    icon: 'school',
+    link: '#/login'
   },
   {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev',
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev',
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev',
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev',
-  },
-  {
-    title: 'Link za moj GitHub repozitorij',
-    caption: 'GitHub knjižnica repozotrij',
-    icon: 'code',
-    link: 'https://github.com/rino2505/knjiznica'
-  },
-  
+    title: 'Knjižnica- registracija',
+    caption: 'Registacija korisnika',
+    icon: 'school',
+    link: '#/registracija'
+  }
 ]
 
 const leftDrawerOpen = ref(false)
