@@ -70,6 +70,12 @@ const linksList = [
     caption: 'Registacija korisnika',
     icon: 'school',
     link: '#/registracija'
+  },
+  {
+    title: 'Test stranica',
+    caption: 'TEST STRANICA',
+    icon: 'school',
+    link: '#/test'
   }
 ]
 
