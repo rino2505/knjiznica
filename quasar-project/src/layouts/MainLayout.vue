@@ -76,6 +76,12 @@ const linksList = [
     caption: 'TEST STRANICA',
     icon: 'school',
     link: '#/test'
+  },
+  {
+    title: 'Test stranica 1',
+    caption: 'TEST STRANICA 1',
+    icon: 'school',
+    link: '#/test1'
   }
 ]
 
