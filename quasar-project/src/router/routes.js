@@ -12,7 +12,8 @@ const routes = [
       { path: '/login', component: () => import('pages/LoginPage.vue') },
       { path: '/registracija', component: () => import('pages/RegistracijaPage.vue') },
       { path: '/test', component: () => import('pages/TestPage.vue') },
-      { path: '/test1', component: () => import('pages/Test1Page.vue') }
+      { path: '/test1', component: () => import('pages/Test1Page.vue') },
+      { path: '/unos', component: () => import('pages/UnosNovihKnjigaPage.vue') }
 ]},
 
   // Always leave this as last one,

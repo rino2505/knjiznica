@@ -82,6 +82,12 @@ const linksList = [
     caption: 'TEST STRANICA 1',
     icon: 'school',
     link: '#/test1'
+  },
+  {
+    title: 'Unos novih Knjiga',
+    caption: 'Unos novih knjiga',
+    icon: 'school',
+    link: '#/unos'
   }
 ]
 
