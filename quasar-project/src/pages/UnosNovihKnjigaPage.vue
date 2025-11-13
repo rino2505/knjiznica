@@ -1,89 +1,67 @@
 <template>
   <q-page class="q-pa-md">
-    <q-card class="q-pa-md" style="max-width: 700px; margin: auto;">
-      <q-card-section>
-        <div class="text-h6">Unos nove knjige</div>
-      </q-card-section>
-      <q-form @submit.prevent="spremiKnjigu" @reset.prevent="odustani">
-        <q-card-section class="q-gutter-md">
+    <div class="q-gutter-md" style="max-width: 600px; margin: auto;">
 
-    
-          <q-input
-            v-model="novaKnjiga.naslov"
-            label="Naslov knjige"
-            filled
-            required
-          />
+      <h4>Unos nove knjige</h4>
 
-         
-          <q-input
-            v-model="novaKnjiga.autor"
-            label="Autor"
-            filled
-            required
-          />
+      <q-input v-model="novaKnjiga.naslov" label="Naslov" outlined />
+      <q-input v-model="novaKnjiga.autor" label="Autor" outlined />
+      <q-input v-model="novaKnjiga.opis" label="Opis" type="textarea" outlined />
 
-          
-          <q-input
-            v-model="novaKnjiga.opis"
-            label="Opis knjige"
-            type="textarea"
-            filled
-          />
+      <q-file
+        v-model="novaKnjiga.slika"
+        label="Odaberi sliku"
+        accept="image/*"
+        filled
+        clearable
+      />
 
-          
-          <q-file
-            v-model="novaKnjiga.slika"
-            label="Odaberi sliku"
-            filled
-            accept="image/*"
-            use-chips
-          />
+      <q-select
+        v-model="novaKnjiga.status"
+        :options="statusOpcije"
+        label="Status"
+        outlined
+        option-label="label"
+        option-value="value"
+      />
 
-          
-          <q-select
-            v-model="novaKnjiga.status"
-            :options="statusOpcije"
-            label="Status"
-            filled
-          />
-        </q-card-section>
+      <div class="row q-gutter-sm justify-center">
+        <q-btn label="Spremi" color="primary" @click="spremiKnjigu" />
+        <q-btn label="Odustani" color="negative" flat @click="odustani" />
+      </div>
 
-        <q-card-actions align ="right">
-          <q-btn label="Odustani" color="negative" type="reset" flat />
-          <q-btn label="Spremi" color="primary" type="submit" />
-        </q-card-actions>
-      </q-form>
-    </q-card>
+      <q-separator spaced />
 
-    
-    <div class="q-mt-lg row q-col-gutter-md">
-      <div
-        v-for="knjiga in knjige"
-        :key="knjiga.id"
-        class="col-12 col-sm-6 col-md-4"
-      >
-        <q-card>
-          <q-img
-            v-if="knjiga.slika"
-            :src="URL.createObjectURL(knjiga.slika)"
-            ratio="16/9"
-          />
-          <q-card-section>
-            <div class="text-h6">{{ knjiga.naslov }}</div>
-            <div class="text-subtitle2 text-grey">{{ knjiga.autor }}</div>
-            <div class="q-mt-sm">{{ knjiga.opis }}</div>
-          </q-card-section>
-          <q-separator />
-          <q-card-section>
-            <q-chip
-              :color="knjiga.status === 'zauzeta' ? 'red' : 'green'"
-              text-color="white"
-            >
-              {{ knjiga.status }}
-            </q-chip>
-          </q-card-section>
-        </q-card>
+      <div v-if="knjige.length">
+        <h5>Popis unesenih knjiga</h5>
+        <div class="row q-col-gutter-md q-mt-md">
+          <div v-for="k in knjige" :key="k.id" class="col-12 col-sm-6 col-md-4">
+            <q-card>
+              <q-card-section>
+                <div class="text-h6">{{ k.naslov }}</div>
+                <div class="text-subtitle2 text-grey">{{ k.autor }}</div>
+              </q-card-section>
+
+              <q-img
+                :src="getImageUrl(k.slika)"
+                
+              />
+
+              <q-card-section>
+                <div>{{ k.opis }}</div>
+              </q-card-section>
+
+              <q-card-section>
+                <q-badge
+                  :color="k.status.value === 'slobodna' ? 'green' : 'red'"
+                  align="middle"
+                >
+                  {{ k.status.label }}
+                </q-badge>
+              </q-card-section>
+            </q-card>
+          </div>
+        </div>
       </div>
     </div>
   </q-page>
@@ -92,18 +70,7 @@
 <script setup>
 import { ref } from 'vue'
 
-
 const knjige = ref([])
-
-
-const novaKnjiga = ref({
-  id: 1,
-  naslov: '',
-  autor: '',
-  opis: '',
-  slika: null,
-  status: 'slobodna'
-})
 
 
 const statusOpcije = [
@@ -111,29 +78,46 @@ const statusOpcije = [
   { label: 'Zauzeta', value: 'zauzeta' }
 ]
 
+const novaKnjiga = ref({
+  id: 0,
+  naslov: '',
+  autor: '',
+  opis: '',
+  slika: null,
+  status: statusOpcije[0] 
+})
+
+
+
+function getImageUrl(slika) {
+  if (slika && typeof URL !== 'undefined') {
+    return URL.createObjectURL(slika)
+  }
+  return 'https://cdn.quasar.dev/img/mountains.jpg'
+}
+
 function spremiKnjigu() {
-  
-  const nova = { ...novaKnjiga.value, id: knjige.value.length + 1 }
-  knjige.value.push(nova)
-  console.log('Dodana knjiga:', nova)
+  const noviId = knjige.value.length + 1
+  const kopija = { ...novaKnjiga.value, id: noviId }
+
+  knjige.value.push(kopija)
   odustani()
 }
 
-
 function odustani() {
   novaKnjiga.value = {
-    id: knjige.value.length + 1,
+    id: 0,
     naslov: '',
     autor: '',
     opis: '',
     slika: null,
-    status: 'slobodna'
+    status: statusOpcije[0] 
   }
 }
 </script>
 
 <style scoped>
-.q-page {
-  background-color: #f7f7f7;
+h4 {
+  text-align: center;
 }
 </style>
